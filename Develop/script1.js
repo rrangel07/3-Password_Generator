@@ -1,6 +1,8 @@
-var num, result,i;
-num= Number(prompt("What's the number?"));
- for (i=1; i<=num; i++){
-     result += i;
- }
- console.log(result);
+
+
+  var chars= {
+    upperCase: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+    lowerCase: "abcdefghijklmnopqrstuvwxyz",
+    numbers: "0123456789",
+    specialChar: "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~",
+  };
