@@ -38,21 +38,24 @@ function gettingTypesOfChar (){
     numbers: "",
     specialChar: "",
   };
-  var counter=0,possibbleChar;
+  var counter=0, possibbleChar="";
   var objKeys= Object.keys(chars);
 
+  //Two loops were nested. The inner loop lets the user select the type of data they want on their password. The outer loop forces the user to select at least one type of data.
   do{
     for(i=0; i<4; i++){
-      resp[objKeys[i]]= confirm("Would you like to include "+ objKeys[i] +" elements?");
+      resp[objKeys[i]]= confirm("Would you like to include "+ objKeys[i] +" elements?"); //This line lets the user pick the type of characters they want to include on their password. Also stores the response in an object
       if(resp[objKeys[i]] === true){
-        possibbleChar += chars[objKeys[i]];
+        possibbleChar += chars[objKeys[i]]; //Creates the string with the characters selected by the user.
         counter++;
       }
     }
-    if(counter<1){
+    if(counter<1){ //This condition informs the the user that they haven't picked any type of character
       alert("You need to pick at least one type of characters");
     }
-  } while (counter<1);
+  } while (counter<1);//This condition verifies that the user picked at least one type of character and if they haven't picked at least one, it restarts the whole loop.
+
+  // From lines 58 to 88 we set a regular expression, based on the previous selections of the user. This will be used to confirm that the password meets the conditions required by the user,
   if (resp.upperCase && resp.lowerCase && resp.numbers && resp.specialChar){
     exp=RegExp(/(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!\"#$%&'()*+,-./:;<=>?@[\\\]^_`{|}~])[A-Za-z0-9!\"#$%&'()*+,-./:;<=>?@[\\\]^_`{|}~]/);
   } else if (resp.upperCase && resp.lowerCase && resp.numbers){
@@ -84,45 +87,24 @@ function gettingTypesOfChar (){
   } else {
       exp=RegExp(/(?=.*[!\"#$%&'()*+,-./:;<=>?@[\\\]^_`{|}~])[!\"#$%&'()*+,-./:;<=>?@[\\\]^_`{|}~]/);
   }
-  return(possibbleChar);
+  return(possibbleChar); //returns the string with all the types of values selected by the user.
 }
 
 function generatePassword(){
-  gettingNumOfChar();
+  var numChar=gettingNumOfChar();
   var charStrng= gettingTypesOfChar();
-  charStrng= charStrng.substring(9);
-  for (i=0; i<gettingNumOfChar(); i++)
-    Math.floor(Math.random()*(gettingNumOfChar()));
-  console.log(gettingNumOfChar());
+  // console.log(charStrng.length);
+  //Two loops were nested here, too. The inner one limits the number of character for the password using the user's input. The outer one checks that the password meet the regular expression setted based on the user's input, if not the loop starts all over again until that happens.
+  do{
+    var possiblePassword="";   //this line of code restarts the variable possible password in case that the loop is repeating itself, we still will meet the criteria of password length.
+    for (i=0; i<numChar; i++){
+      let position=Math.floor(Math.random()*charStrng.length);
+      possiblePassword += charStrng.charAt(position);
+    }
+}while (!exp.test(possiblePassword)); // This condition verifies that the possible password meets the conditions set by the regular expression i.e. that includes all the characters selected by the user.
 
-  console.log(charStrng);
-  console.log(exp);
+  // console.log(numChar);
+  // console.log(charStrng.length);
+  // console.log(exp);
+  return(possiblePassword); //returns the password once it meets all the criteria.
 }
-
-  // // Increase a counter
-  // function increase (x,y,arr){
-  //   if(x == true){
-  //     y++;
-  //   }
-  //   console.log(y);
-  //   return (y);
-  // }
-  //   console.log(objKeys);
-  
-
-//   do{
-//     numTypes = 0;
-//     let lowerCase= confirm("Would you like to include lowercase elements?");
-//     numTypes = increase (lowerCase,numTypes);
-//     let upperCase = confirm("Would you like to include uppercase elements?");
-//     numTypes = increase (upperCase,numTypes);
-//     let numbers = confirm("Would you like to include numbers?");
-//     numTypes = increase (numbers,numTypes);
-//     let specialChar = confirm("Would you like to include special characters?");
-//     numTypes = increase (specialChar,numTypes);
-//     if (numTypes == 0){
-//       alert("Your password must include at least one type of characters");
-//     }
-
-//   } while (numTypes <1);
-// }
