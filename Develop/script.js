@@ -17,7 +17,7 @@ var exp;
 function gettingNumOfChar (){
   var numChar;
   do{
-    numChar= prompt("Ingrese la cantidad de caracteres que desea para su contraseña (8-128)");
+    numChar= prompt("Enter the number of characters for your password (8-128)");
     if (numChar <= 7 || numChar >= 129) {
       alert("Your password must have min 8 characters and max 128");
     }
