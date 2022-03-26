@@ -21,6 +21,10 @@ function gettingNumOfChar (){
     if (numChar <= 7 || numChar >= 129) {
       alert("Your password must have min 8 characters and max 128");
     }
+    // The if condition allows the user to exit the script if they cliked by mistake
+    if (!numChar){
+      return;
+    }
   } while (numChar <8 || numChar > 128 || isNaN(numChar)); //Condition if is less than 8, more than 128 or the user enters a NaN the loop will repeat itself.
   return(numChar);
 }
@@ -92,6 +96,10 @@ function gettingTypesOfChar (){
 
 function generatePassword(){
   var numChar=gettingNumOfChar();
+  // Following the logic inside the function gettingNumOfChar the if condition allows the user exit the script if numChar isNan
+  if(isNaN(numChar)){
+    return;
+  }
   var charStrng= gettingTypesOfChar();
   // console.log(charStrng.length);
   //Two loops were nested here, too. The inner one limits the number of character for the password using the user's input. The outer one checks that the password meet the regular expression setted based on the user's input, if not the loop starts all over again until that happens.
